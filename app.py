@@ -10,14 +10,37 @@ import io
 openai.api_key = st.secrets["openai"]["api_key"]
 
 def generate_question(case_vignette, question_type):
-    prompt = f"Given the following pediatric case vignette:\n\n{case_vignette}\n\nGenerate a USMLE/NBME style question for: {question_type}."
+    prompt = f"""Given the following pediatric case vignette:
+{case_vignette}
+
+Generate a USMLE/NBME style multiple choice question for: {question_type}.
+The question must be formatted in multiple choice style with exactly four answer options labeled A, B, C, and D.
+Clearly indicate the correct answer.
+Also, provide a detailed explanation for why that answer is correct.
+Format your response using the following sections and delimiters exactly:
+
+---BEGIN QUESTION---
+Question:
+<Your multiple choice question including answer options>
+---END QUESTION---
+
+---BEGIN ANSWER KEY---
+Answer Key:
+<The correct answer letter (e.g., A, B, C, or D)>
+---END ANSWER KEY---
+
+---BEGIN EXPLANATION---
+Explanation:
+<The detailed explanation for the correct answer>
+---END EXPLANATION---
+"""
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are an expert in pediatric medical education."},
             {"role": "user", "content": prompt}
         ],
-        max_tokens=150,
+        max_tokens=500,
         temperature=0.7
     )
     return response['choices'][0]['message']['content'].strip()
