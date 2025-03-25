@@ -6,18 +6,22 @@ from docx import Document
 import zipfile
 import io
 
-# Set your OpenAI API key
-openai.api_key = "YOUR_API_KEY"
+# OpenAI API key setup (use secrets or environment variable for security)
+openai.api_key = st.secrets["openai"]["api_key"]
 
 def generate_question(case_vignette, question_type):
     prompt = f"Given the following pediatric case vignette:\n\n{case_vignette}\n\nGenerate a USMLE/NBME style question for: {question_type}."
-    response = openai.Completion.create(
-        engine="text-davinci-003",  # or your preferred engine
-        prompt=prompt,
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "You are an expert in pediatric medical education."},
+            {"role": "user", "content": prompt}
+        ],
         max_tokens=150,
         temperature=0.7
     )
-    return response.choices[0].text.strip()
+    return response['choices'][0]['message']['content'].strip()
+
 
 def create_case_vignette(row):
     # Customize how the case vignette is built using the diagnoses columns.
