@@ -15,7 +15,7 @@ if uploaded_file is not None:
     
     # Step 1: Create a random number for each unique AAMC ID
     # Here we generate a random float between 10 and 20 (rounded to 1 decimal) for each unique ID.
-    unique_ids = df["AAMC ID"].unique()
+    unique_ids = df["Student AAMC ID"].unique()
     random_mapping = {id_: np.round(np.random.uniform(10, 20), 1) for id_ in unique_ids}
     # Map the same random number to all rows with the same AAMC ID.
     df["Random_Number"] = df["AAMC ID"].map(random_mapping)
