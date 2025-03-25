@@ -18,7 +18,7 @@ if uploaded_file is not None:
     unique_ids = df["Student AAMC ID"].unique()
     random_mapping = {id_: np.round(np.random.uniform(10, 20), 1) for id_ in unique_ids}
     # Map the same random number to all rows with the same AAMC ID.
-    df["Random_Number"] = df["AAMC ID"].map(random_mapping)
+    df["Random_Number"] = df["Student AAMC ID"].map(random_mapping)
     
     st.subheader("Data with Random Number Column")
     st.dataframe(df.head())
