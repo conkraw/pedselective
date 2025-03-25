@@ -29,5 +29,35 @@ if uploaded_file is not None:
         if score == 1:
             return "Unable to create a plausible differential diagnosis. No insight to poor clinical reasoning."
         elif score == 2:
-            return "Struggles to create an appropriate differential without significant guidance. Unable to identify diagnostics
+            return "Struggles to create an appropriate differential without significant guidance. Unable to identify diagnostics/treatments."
+        elif score == 3:
+            return ("Develops a reasonable differential but lacks supporting clinical data or prioritization. "
+                    "Lists possible diagnostics/treatments but uncertain which to apply without significant guidance.")
+        elif score == 4:
+            return ("Develops a reasonable differential; occasionally omits clinical data support differential or treatment. "
+                    "Selection of diagnostics and treatments based on the differential but may require refinement.")
+        elif score == 5:
+            return ("Develops and prioritizes an accurate differential that is consistently supported by clinical data. "
+                    "Selection of diagnostics/treatment targeted to the differential.")
+        else:
+            return "Invalid score"
+    
+    # Check if the expected column exists.
+    col_name = "3 Multiple Choice Value"
+    if col_name in df.columns:
+        df["Entrustable_Behavior"] = df[col_name].apply(map_score_to_behavior)
+        
+        st.subheader("Data with Entrustable Behavior Column")
+        st.dataframe(df.head())
+    else:
+        st.error(f"Column '{col_name}' not found in the data.")
+
+    # Optional: Provide a download button for the processed data.
+    csv = df.to_csv(index=False)
+    st.download_button(
+        label="Download Processed Data",
+        data=csv,
+        file_name='processed_data.csv',
+        mime='text/csv'
+    )
 
