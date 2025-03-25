@@ -39,7 +39,7 @@ if uploaded_file:
     st.write("Data Preview:", df.head())
 
     # Group by the email column
-    grouped = df.groupby("email")
+    grouped = df.groupby("Please enter email.")
     
     # Create a zip buffer to store all the zip files for download if desired
     zip_all_buffer = io.BytesIO()
