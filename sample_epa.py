@@ -1,6 +1,11 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
+import openai
+import random
+from docx import Document
+import zipfile
+import io
+
 
 # OpenAI API key setup (use secrets or environment variable for security)
 openai.api_key = st.secrets["openai"]["api_key"]
