@@ -75,7 +75,7 @@ Respond with only the bullet number, nothing else.
         return "Unknown"
 
 def main():
-    st.title("Learner Evaluation Analysis (with OpenAI)")
+    st.title("Learner Evaluation Analysis")
 
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
     
