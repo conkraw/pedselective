@@ -53,7 +53,9 @@ Below is feedback from a preceptor about a learner:
 ---
 
 Please determine which bullet point (1 to {len(epa_2_bullets)}) best aligns with this feedback.
-Respond with only the bullet number, nothing else.
+If you are uncertain or no option is a perfect match, pick the closest bullet anyway.
+Respond with only the bullet number (1 to {len(epa_2_bullets)}). 
+Do not provide any explanation, disclaimers, or additional text.
 """
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -72,7 +74,7 @@ Respond with only the bullet number, nothing else.
     if match:
         return match.group(1)  # e.g., "5"
     else:
-        return "Unknown"
+        return "1"
 
 def main():
     st.title("Learner Evaluation Analysis")
@@ -126,7 +128,7 @@ def main():
 
             # 1) GPT returns the bullet number as a string, e.g. "5"
             bullet_num_str = match_to_epa_2_behavior(answer_8, answer_9, e_behavior, epa_2_bullets)
-
+        
             # 2) Convert bullet_num_str to an integer index
             try:
                 bullet_index = int(bullet_num_str) - 1
