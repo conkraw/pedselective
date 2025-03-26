@@ -13,12 +13,37 @@ openai.api_key = st.secrets["openai"]["api_key"]
 # A short, summarized list of the key behaviors from the EPA 2 chart.
 # Replace these placeholders with your own succinct descriptions from the AAMC’s EPA 2 image.
 epa_2_bullets = [
-    "Behavior A: Needs significant improvement (cannot create plausible differential, lacks insight).",
-    "Behavior B: Struggles to create an appropriate differential without guidance, etc.",
-    "Behavior C: Develops a reasonable differential but lacks supporting data or prioritization.",
-    "Behavior D: Develops a reasonable differential, occasionally omits data. Diagnostics/treatments mostly appropriate.",
-    "Behavior E: Develops and prioritizes an accurate differential consistently supported by clinical data."
-    # Add or refine as needed, summarizing the main bullet points from the EPA 2 chart.
+    "Behavior A: Cannot gather or synthesize data to inform an acceptable diagnosis",
+    "Behavior B: Lacks basic medical knowledge to reason effectively",
+    "Behavior C: Struggles to filter, prioritize, and make connections between sources of information",
+    "Behavior D: Gathers pertinent data based on initial diagnostic hypotheses but may neglect important information",
+    "Behavior E: Gathers pertinent information from many sources in a hypothesis-driven fashion",
+    "Behavior F: Demonstrates difficulty retrieving knowledge for effective reasoning",
+    "Behavior G: Proposes a differential diagnosis that is too narrow, too broad, or contains inaccuracies",
+    "Behavior H: Proposes a reasonable differential diagnosis but may overlook important diagnostic information",
+    "Behavior I: Organizes knowledge into illness scripts (patterns) to generate and support a diagnosis",
+    "Behavior J: Disregards emerging diagnostic information",
+    "Behavior K: Does not integrate emerging information to update the differential diagnosis",
+    "Behavior L: Displays discomfort with ambiguity",
+    "Behavior M: Considers emerging information but does not completely integrate to update the differential diagnosis",
+    "Behavior N: Acknowledges ambiguity and is open to questions and challenges",
+    "Behavior O: Seeks and integrates emerging information to update the differential diagnosis",
+    "Behavior P: Becomes defensive and/or belligerent when questioned on differential diagnosis",
+    "Behavior Q: Ignores the team’s recommendations",
+    "Behavior R: Does not seek assistance from team members",
+    "Behavior S: Does not engage or communicate effectively with team members",
+    "Behavior T: Engages and communicates with team members for endorsement and verification of the working diagnosis",
+    "Behavior U: Seeks assistance from team members to help inform diagnosis and management",
+    "Behavior V: Encourages questions and challenges from patients and team",
+    "Behavior W: Develops and acts on a management plan before receiving the team’s endorsement",
+    "Behavior X: Recommends a broad range of untailored diagnostic evaluations",
+    "Behavior Y: Depends on the team for all management plans",
+    "Behavior Z: Recommends diagnostic evaluations tailored to the evolving differential diagnosis after consultation with the team",
+    "Behavior AA: Proposes diagnostic and management plans reflecting the team’s input",
+    "Behavior AB: Cannot explain or document clinical reasoning",
+    "Behavior AC: Does not completely explain and document reasoning",
+    "Behavior AD: Explains and documents clinical reasoning",
+    "Behavior AE: Provides complete and succinct documentation explaining clinical reasoning"
 ]
 
 
