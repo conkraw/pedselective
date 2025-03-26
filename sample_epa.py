@@ -47,22 +47,25 @@ epa_2_bullets = [
 ]
 
 
-def match_to_epa_2_behavior(answer_text_8, answer_text_9, entrustable_behavior_text):
+import openai
+import re
+
+def match_to_epa_2_behavior(answer_text_8, answer_text_9, entrustable_behavior_text, epa_2_bullets):
     """
-    Calls the OpenAI API to figure out which bullet from 'epa_2_bullets' best
-    matches the textual feedback (answers + the numeric-based entrustable behavior).
+    Calls the OpenAI API to figure out which bullet (1 to N) from 'epa_2_bullets'
+    best matches the textual feedback. Returns only the bullet number as a string.
     """
-    
+
     # Combine the relevant text from the row
     user_text = (
         f"Answer 8: {answer_text_8}\n\n"
         f"Answer 9: {answer_text_9}\n\n"
         f"Entrustable Behavior: {entrustable_behavior_text}"
     )
-    
+
     # Build a single string listing the bullet points
     bullet_list = "\n".join([f"{i+1}. {bullet}" for i, bullet in enumerate(epa_2_bullets)])
-    
+
     # Create the prompt for GPT
     prompt = f"""
 You are an expert clinical educator. You have a summarized set of possible EPA 2 behaviors:
@@ -74,24 +77,31 @@ Below is feedback from a preceptor about a learner (including numeric-based entr
 {user_text}
 ---
 
-Please determine which bullet point (1 to {len(epa_2_bullets)}) best aligns with this feedback. 
-Explain briefly why you chose that bullet.
+Please determine which bullet point (1 to {len(epa_2_bullets)}) best aligns with this feedback.
+Respond with only the bullet number, nothing else.
 """
 
-    # Call the OpenAI ChatCompletion endpoint (gpt-3.5-turbo or newer)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant specialized in medical education."},
             {"role": "user", "content": prompt},
         ],
-        max_tokens=300,
-        temperature=0.2
+        max_tokens=50,
+        temperature=0.0
     )
-    
-    # Extract the response text
-    best_match = response.choices[0].message["content"].strip()
-    return best_match
+
+    # Extract the raw response text (likely just a number)
+    raw_text = response.choices[0].message["content"].strip()
+
+    # Use a regex to find a digit in the response
+    match = re.search(r"\b(\d+)\b", raw_text)
+    if match:
+        return match.group(1)  # Return the bullet number as a string
+    else:
+        # Fallback if no clear digit is found
+        return raw_text
+
 
 
 def main():
