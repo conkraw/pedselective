@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import openai
 import random
+import numpy as np 
 from docx import Document
 import zipfile
 import io
