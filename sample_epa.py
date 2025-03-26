@@ -115,14 +115,14 @@ def main():
                 return ("Develops and prioritizes an accurate differential consistently supported by clinical data. "
                         "Selection of diagnostics/treatment is well targeted to the differential.")
         
-        df["Entrustable_Behavior"] = df["3 Multiple Choice Value"].apply(map_score_to_text)
+        df["oasis_anchor"] = df["3 Multiple Choice Value"].apply(map_score_to_text)
 
         # For each row, call OpenAI to find the best matching bullet from epa_2_bullets
         best_matches = []
         for idx, row in df.iterrows():
             answer_8 = str(row["8 Answer text"])
             answer_9 = str(row["9 Answer text"])
-            e_behavior = str(row["Entrustable_Behavior"])
+            e_behavior = str(row["oasis_anchor"])
 
             # 1) GPT returns the bullet number as a string, e.g. "5"
             bullet_num_str = match_to_epa_2_behavior(answer_8, answer_9, e_behavior, epa_2_bullets)
@@ -143,7 +143,7 @@ def main():
         df["Closest_EPA2_Bullet"] = best_matches
 
         # Build final DataFrame with only needed columns
-        processed_df = df[["Random_Number", "Entrustable_Behavior", "8 Answer text", "9 Answer text", "Closest_EPA2_Bullet"]]
+        processed_df = df[["Random_Number", "oasis_anchor", "8 Answer text", "9 Answer text", "Closest_EPA2_Bullet"]]
         
         st.subheader("Processed Data Preview")
         st.dataframe(processed_df.head())
