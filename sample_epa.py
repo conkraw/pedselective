@@ -37,7 +37,7 @@ def match_to_epa_2_behavior(answer_text_8, answer_text_9, entrustable_behavior_t
     user_text = (
         f"Answer 8: {answer_text_8}\n\n"
         f"Answer 9: {answer_text_9}\n\n"
-        f"Entrustable Behavior: {entrustable_behavior_text}"
+        f"Oasis Evaluation Text: {entrustable_behavior_text}"
     )
 
     bullet_list = "\n".join([f"{i+1}. {bullet}" for i, bullet in enumerate(epa_2_bullets)])
