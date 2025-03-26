@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+# OpenAI API key setup (use secrets or environment variable for security)
+openai.api_key = st.secrets["openai"]["api_key"]
+
 st.title("Learner Evaluation Analysis")
 
 # Upload CSV file
