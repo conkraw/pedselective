@@ -81,16 +81,16 @@ def main():
         st.dataframe(df.head())
 
         # 3. Ensure the columns we need exist
-        required_cols = ["AAMC ID", "3 Multiple Choice Value", "8 Answer text", "9 Answer text"]
+        required_cols = ["Student AAMC ID", "3 Multiple Choice Value", "8 Answer text", "9 Answer text"]
         missing_cols = [col for col in required_cols if col not in df.columns]
         if missing_cols:
             st.error(f"Missing columns in the uploaded file: {missing_cols}")
             return
 
         # 4. Assign random numbers for each unique AAMC ID
-        unique_ids = df["AAMC ID"].unique()
+        unique_ids = df["Student AAMC ID"].unique()
         random_mapping = {id_: np.round(np.random.uniform(10, 20), 1) for id_ in unique_ids}
-        df["Random_Number"] = df["AAMC ID"].map(random_mapping)
+        df["Random_Number"] = df["Student AAMC ID"].map(random_mapping)
 
         # 5. Map numeric scores (1–5) to entrustable behavior text
         def map_score_to_text(score):
